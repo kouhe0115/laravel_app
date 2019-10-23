@@ -21,13 +21,13 @@
 {{--    $todosの中にはCollectionのインスタンスが入っていて、foreachで回すと1レコードずつ取り出すことができる。--}}
         @foreach ($todos as $todo)
             <tr>
-{{--            EloquentというORMのObject になってます。$variable->カラムという書き方で値を取得できる。--}}
-{{--            {{}}で囲うことで、エスケープ処理（意味のある文字列をただの文字列に変換）してくれている--}}
+{{--            EloquentというORMのObject になっている。$変数名->カラムという書き方で値を取得できる。--}}
+{{--            {{}}で囲うことで、変数の展開、エスケープ処理（意味のある文字列をただの文字列に変換）してくれている--}}
                 <td class="align-middle">{{ $todo->title }}</td>
                 <td class="align-middle">{{ $todo->created_at }}</td>
                 <td class="align-middle">{{ $todo->updated_at }}</td>
                 <td><a class="btn btn-primary" href="{{ route('todo.edit', $todo->id) }}">編集</a></td>
-                {{-- route()の第1引数にNameを渡し、第2引数でrouteパラメータを指定している。 --}}
+                {{-- route関数の第1引数にルーティングで定義されたNameを渡し、第2引数でrouteパラメータを指定している。 --}}
                 <td>
                     {!! Form::open(['route' => ['todo.destroy', $todo->id], 'method' => 'DELETE']) !!}
                         {!! Form::submit('削除', ['class' => 'btn btn-danger']) !!}

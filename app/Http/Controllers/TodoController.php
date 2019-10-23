@@ -31,7 +31,7 @@ class TodoController extends Controller
 //      第2引数で関数、連想配列等を指定できる
 //      dd($todos)の中身はtable構成などの情報が入ったオブジェクトが入った配列。
 //      compact()には変数名を文字列で渡すことで、変数名の文字列をキーとした連想配列を生成してくれる。
-//      この時にローカル変数 $todosがviewでも使えるようになる。
+//      この時にローカル変数 $todosをviewではキーとして扱うことで、view側で変数を使えるようになる。
     }
     
 //  compact() - 変数名をキーに値を配列にして返す
@@ -75,7 +75,7 @@ class TodoController extends Controller
     public function update(Request $request, $id)
     {
         $params = $request->all();
-//      token method title の連想配列。
+//      all()の戻り値はtoken method title の連想配列。
         $this->todo->find($id)->fill($params)->save();
         return redirect()->to('todo');
     }
