@@ -6,9 +6,11 @@
             <div class="form-group">
                 {!! Form::input('text', 'title', $todo->title, ['required', 'class' => 'form-control']) !!}
             </div>
-        {!! Form::submit('更新', ['class' => 'btn btn-success float-right']) !!}
-    {!! Form::close() !!}
+            {!! Form::submit('更新', ['class' => 'btn btn-success float-right']) !!}
+        {!! Form::close() !!}
 
+    
+{{--    put - 更新に使う、同一データで上書きされる。べきとうせい、一度行ってももう一度行っても同じ結果が得られる性質--}}
 {{--
     Form::input
         第1引数で入力タイプを指定できる

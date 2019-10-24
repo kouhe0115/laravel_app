@@ -32,7 +32,8 @@
                     {!! Form::open(['route' => ['todo.destroy', $todo->id], 'method' => 'DELETE']) !!}
                         {!! Form::submit('削除', ['class' => 'btn btn-danger']) !!}
                     {!! Form::close() !!}
-                    
+    
+{{--                laravelcollective/htmlを導入することで使える --}}
 {{--                From::open
                     引数で配列を渡しキーで設定できる
                     Form::openでtokenはhiddenで自動で生成される。csrf対策用のtoken

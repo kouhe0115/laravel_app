@@ -34,6 +34,7 @@ class TodoController extends Controller
 //      この時にローカル変数 $todosをviewではキーとして扱うことで、view側で変数を使えるようになる。
     }
     
+//    selct * from todos
 //  compact() - 変数名をキーに値を配列にして返す
     
     public function create()
@@ -44,12 +45,13 @@ class TodoController extends Controller
     
     public function store(Request $request)
     {
-        $params = $request->all();
+        $input = $request->all();
 //      HTTPリクエストインスタンスを取得title, token の二つのキーを持つ連想配列が返り値。
-        $this->todo->fill($params)->save();
+        $this->todo->fill($input)->save();
         return redirect()->to('todo');
     }
-    
+//    in int todods(title) values title
+
 //      store(Request)でRequest インスタンス生成
 //      このオブジェクトの、requestプロパティのparametersプロパティの中に連想配列が入っている
 //      all()メソッドで上記オブジェクトのrequestのparametersの連想配列を取り出している
@@ -71,6 +73,7 @@ class TodoController extends Controller
 //      findの戻り値はTodoオブジェクト
         return view('todo.edit', compact('todo'));
     }
+//    sl * foom todos where id = $id;
     
     public function update(Request $request, $id)
     {
@@ -79,7 +82,8 @@ class TodoController extends Controller
         $this->todo->find($id)->fill($params)->save();
         return redirect()->to('todo');
     }
-    // fill()Eloquentが$fillableをチェックしてこの値を設定できるかチェックしてくれる。その後save()によりテーブルの対応するidの更新処理が行われる。
+//    update todos set  title = $input:input where = id $id
+    // fill()Eloquentが$この値を設定できるかチェックしてくれる。その後save()によりテーブルの対応するidの更新処理が行われる。
     
     public function destroy($id)
     {
