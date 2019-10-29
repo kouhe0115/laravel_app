@@ -3,7 +3,7 @@
 @section ('content')
 {{-- 親のファイルの@yield部分に呼び出すための記述 --}}
     
-    <h1 class="page-header">ToDo一覧</h1>
+    <h1 class="page-header">{{ $user->name }}のToDo一覧</h1>
     <p class="text-right">
         <a class="btn btn-success" href="/todo/create">新規作成</a>
     </p>

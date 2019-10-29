@@ -26,10 +26,11 @@ class TodoController extends Controller
     
     public function index()
     {
+        $user = Auth::user();
 //      $todos = $this->todo->all();
         $todos = $this->todo->getByUserId(Auth::id());
 //      コレクションオブジェクトが返ってくる。
-        return view('todo.index', compact('todos'));
+        return view('todo.index', compact('todos','user'));
     }
     
 //      allメソッドを使うと、各レコードのカラムと値が入ったオブジェクトが複数返ってくる。
