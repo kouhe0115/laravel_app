@@ -10,6 +10,7 @@
     <table class="table">
         <thead class="thead-light">
         <tr>
+            <th>ID</th>
             <th>やること</th>
             <th>作成日時</th>
             <th>更新日時</th>
@@ -23,6 +24,7 @@
             <tr>
 {{--            EloquentというORMのObject になっている。$変数名->カラムという書き方で値を取得できる。--}}
 {{--            {{}}で囲うことで、変数の展開、エスケープ処理（意味のある文字列をただの文字列に変換）してくれている--}}
+                <td class="align-middle">{{ $todo->id }}</td>
                 <td class="align-middle">{{ $todo->title }}</td>
                 <td class="align-middle">{{ $todo->created_at }}</td>
                 <td class="align-middle">{{ $todo->updated_at }}</td>
