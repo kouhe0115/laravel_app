@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 //フルパスの記述は冗長になるので、エイリアス（別名）でパスの記述を短くできる、ファイルの参照
 use Illuminate\Http\Request;
 use App\Todo;
+use Auth;
 
 
 class TodoController extends Controller
@@ -16,42 +17,51 @@ class TodoController extends Controller
 //  コンストラクタが動いた時にインスタンスが生成されて、変数に代入
     public function __construct(Todo $instanceClass)
     {
-//      上記のプライベートにTodoのインスタンスを格納、$thisは自身（クラス自体）を指す
+        $this->middleware('auth');
         $this->todo = $instanceClass;
     }
+    
+//      上記のプライベートにTodoのインスタンスを格納、$thisは自身（クラス自体）を指す
     
     
     public function index()
     {
-        $todos = $this->todo->all();
+//      $todos = $this->todo->all();
+        $todos = $this->todo->getByUserId(Auth::id());
+//      コレクションオブジェクトが返ってくる。
+        return view('todo.index', compact('todos'));
+    }
+    
 //      allメソッドを使うと、各レコードのカラムと値が入ったオブジェクトが複数返ってくる。
 //      Collectionオブジェクトが返ってくる。全レコードがitemsプロパティの中に配列として入っている。
-        return view('todo.index', compact('todos'));
 //      第1引数に viewのパスを渡す。
 //      第2引数で関数、連想配列等を指定できる
 //      dd($todos)の中身はtable構成などの情報が入ったオブジェクトが入った配列。
 //      compact()には変数名を文字列で渡すことで、変数名の文字列をキーとした連想配列を生成してくれる。
 //      この時にローカル変数 $todosをviewではキーとして扱うことで、view側で変数を使えるようになる。
-    }
-    
-//    selct * from todos
-//  compact() - 変数名をキーに値を配列にして返す
+
+//      selct * from todos
+//      compact() - 変数名をキーに値を配列にして返す
     
     public function create()
     {
         return view('todo.create');
-//      view()ヘルパ関数で引数にviewのファイルパスを拡張子抜きで指定。
     }
+    
+//      view()ヘルパ関数で引数にviewのファイルパスを拡張子抜きで指定。
     
     public function store(Request $request)
     {
         $input = $request->all();
-//      HTTPリクエストインスタンスを取得title, token の二つのキーを持つ連想配列が返り値。
+//      リクエストインスタンスのuser_idのキーにAuth::id()でログイン中のuser_idを格納
+        $input['user_id'] = Auth::id();
         $this->todo->fill($input)->save();
         return redirect()->to('todo');
     }
-//    in int todods(title) values title
+    
 
+//      in int todods(title) values title
+//      HTTPリクエストインスタンスを取得title, token の二つのキーを持つ連想配列が返り値。
 //      store(Request)でRequest インスタンス生成
 //      このオブジェクトの、requestプロパティのparametersプロパティの中に連想配列が入っている
 //      all()メソッドで上記オブジェクトのrequestのparametersの連想配列を取り出している

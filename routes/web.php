@@ -12,7 +12,7 @@
     */
     
     Route::get('/', function () {
-        return view('wel');
+        return view('welcome');
     });
     
     Route::resource('todo', 'TodoController');
@@ -24,3 +24,8 @@
 //  URI - ドメイン以下を指す
 //  Name - URIを使用する際、Nameを使用すれば対象のアクションのメソッドが使用される
 //  Middleware - HTTPリクエストの処理の前後に処理を入れる
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
