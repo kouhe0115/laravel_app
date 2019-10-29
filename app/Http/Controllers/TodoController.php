@@ -56,7 +56,7 @@ class TodoController extends Controller
 //      リクエストインスタンスのuser_idのキーにAuth::id()でログイン中のuser_idを格納
         $input['user_id'] = Auth::id();
         $this->todo->fill($input)->save();
-        return redirect()->to('todo');
+        return redirect()->route('todo.index');
     }
     
 
@@ -90,7 +90,7 @@ class TodoController extends Controller
         $params = $request->all();
 //      all()の戻り値はtoken method title の連想配列。
         $this->todo->find($id)->fill($params)->save();
-        return redirect()->to('todo');
+        return redirect()->route('todo.index');
     }
 //    update todos set  title = $input:input where = id $id
     // fill()Eloquentが$この値を設定できるかチェックしてくれる。その後save()によりテーブルの対応するidの更新処理が行われる。
@@ -98,7 +98,7 @@ class TodoController extends Controller
     public function destroy($id)
     {
         $this->todo->find($id)->delete();
-        return redirect()->to('todo');
+        return redirect()->route('todo.index');
     }
     // find()はデータベースのidにのみ検索をかけるメソッドでレコードのオブジェクトが返ってくる。
     // delete()によって物理削除している。
